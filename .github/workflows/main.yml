@@ -1,0 +1,25 @@
+name: CI
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["cpp"]
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Check out HEAD of PR if needed
+      run: git checkout HEAD^2
+      if: ${{ github.event_name == 'pull_request' }}
+
+    - name: Install packages
+      if: ${{ false }}
+      run: apt-get -y update && apt-get -y upgrade && apt-get -y install wget make gcc libevent-dev libmsgpack-dev
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
