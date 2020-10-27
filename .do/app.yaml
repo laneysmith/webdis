@@ -1,0 +1,16 @@
+name: "webdis-test-application"
+services: 
+  - dockerfilePath: Dockerfile
+    envs: 
+      - key: REDIS_LINK
+        type: SECRET
+        value: "TEST VALUE"
+      - key: REDIS_PORT
+        type: SECRET
+    git:
+      branch: master
+      repo_clone_url: https://github.com/laneysmith/webdis
+    http_port: 7379
+    name: webdis
+    routes: 
+      - path: /
